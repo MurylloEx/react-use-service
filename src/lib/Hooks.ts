@@ -10,6 +10,5 @@ export function useServiceContainer(): IServiceContainer {
 
 export function useService<K>(serviceClass: any): K {
   const container: IServiceContainer = useServiceContainer();
-  console.log(container)
   return container.get<K>(serviceClass);
 }

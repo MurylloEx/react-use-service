@@ -1,29 +1,15 @@
 import 'reflect-metadata';
-import React from 'react';
-import './App.css';
+import React, { useEffect } from 'react';
 import { useService } from './lib';
 import { UserService } from './tests';
-import { EasyClassDecorator, EasyMethodDecorator, getEasyMetadataEntries } from '@muryllo/easy-decorators';
-
-const MyDecorator = () => EasyClassDecorator('teste', {});
-const MyProcDecorator = () => EasyMethodDecorator('aaa', {});
-
-@MyDecorator()
-export class Teste {
-
-  constructor(aa: string) {}
-
-  @MyProcDecorator()
-  doSomething(){
-    console.log('Hi!');
-  }
-
-}
+import './App.css';
 
 export function App() {
-
   const user = useService<UserService>(UserService);
-  console.log(user.editUser(3));
+
+  useEffect(() => {
+    user.editUser(3);
+  }, [user]);
 
   return (
     <div className="App">

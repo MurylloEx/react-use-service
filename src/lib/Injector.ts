@@ -1,8 +1,7 @@
-//import { Logger } from 'tslog';
-//import { info, error } from 'loglevel';
-import { IServiceContainer } from './Container';
-import { ServiceFacade } from './Facade';
+import { Logger } from './Logger';
 import { Instantiable } from './Types';
+import { ServiceFacade } from './Facade';
+import { IServiceContainer } from './Container';
 
 /**
  * The Injector stores services and resolves requested instances.
@@ -10,7 +9,7 @@ import { Instantiable } from './Types';
 export class Injector {
 
   private container: IServiceContainer;
-  //private logger: Logger = new Logger();
+  private logger: Logger = new Logger();
 
   private constructor(serviceContainer: IServiceContainer) {
     this.container = serviceContainer;
@@ -62,7 +61,7 @@ export class Injector {
           if (!this.hasUnresolvedDependency(injections)){
             const service = this.container.load<T>(new target(...injections));
   
-            console.log(`Loaded service [${target.name}] to memory by dependency injection.`);
+            this.logger.info(`Loaded service [${target.name}] to memory by dependency injection.`);
 
             return service;
           }
@@ -72,8 +71,8 @@ export class Injector {
         throw new ReferenceError(`Circular dependency detected in [${target.name}].`);
       }
       throw new TypeError(`Invalid provided service [${target.name}], services should be decorated with @Service.`);
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      this.logger.fatal(e);
       return {} as T;
     }
   }
