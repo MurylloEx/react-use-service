@@ -1,7 +1,24 @@
+import 'reflect-metadata';
 import React from 'react';
 import './App.css';
 import { useService } from './lib';
 import { UserService } from './tests';
+import { EasyClassDecorator, EasyMethodDecorator, getEasyMetadataEntries } from '@muryllo/easy-decorators';
+
+const MyDecorator = () => EasyClassDecorator('teste', {});
+const MyProcDecorator = () => EasyMethodDecorator('aaa', {});
+
+@MyDecorator()
+export class Teste {
+
+  constructor(aa: string) {}
+
+  @MyProcDecorator()
+  doSomething(){
+    console.log('Hi!');
+  }
+
+}
 
 export function App() {
 

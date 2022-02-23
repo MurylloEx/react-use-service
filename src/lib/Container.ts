@@ -56,7 +56,7 @@ export class ServiceContainer implements IServiceContainer {
 
     const foundService: K = this.getLoadedDependencies().find((service) => {
       const serviceInfo: ServiceInfo = ServiceFacade.getServiceInfo(service);
-      return serviceInfo.uuid == classInfo.uuid;
+      return serviceInfo.uuid === classInfo.uuid;
     });
 
     if (foundService)
@@ -70,7 +70,7 @@ export class ServiceContainer implements IServiceContainer {
 
     return this.getDependencies().some((service) => {
       const serviceInfo: ServiceInfo = ServiceFacade.getServiceInfo(service.prototype);
-      return serviceInfo.uuid == classInfo.uuid;
+      return serviceInfo.uuid === classInfo.uuid;
     });
   }
 

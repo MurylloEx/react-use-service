@@ -17,7 +17,7 @@ export const ServiceProvider: FunctionComponent<ServiceProviderProps> = ({ child
   
   const numOfLoadedDependencies = containerRef.current.getLoadedDependencies().length;
 
-  if (numOfLoadedDependencies == 0) {
+  if (numOfLoadedDependencies === 0) {
     injectorRef.current.resolveAll();
   }
 
