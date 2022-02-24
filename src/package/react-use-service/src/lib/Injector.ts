@@ -50,6 +50,9 @@ export class Injector {
         throw new TypeError(`Cannot resolve the service [${target.name}] because it wasn't exported in providers.`);
       
       if (ServiceFacade.isValidService(target.prototype)){
+        if (!ServiceFacade.hasServiceParamTypes(target))
+          throw new TypeError('Cannot find TypeScript generated metadata for class constructors.');
+
         if (this.hasResolvedDependency(target))
           return this.container.get<T>(target);
   

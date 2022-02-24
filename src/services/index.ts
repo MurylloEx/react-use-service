@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Service } from "src/package/lib";
+import { Service } from "src/package/react-use-service/dist";
 
 @Service()
 export class DatabaseHandler {
