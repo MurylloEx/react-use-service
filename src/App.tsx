@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import React, { useEffect } from 'react';
-import { useService } from './package/react-use-service/dist';
+import { useService } from 'react-use-service';
 import { UserService } from './services';
 import './App.css';
 

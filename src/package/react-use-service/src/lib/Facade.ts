@@ -17,10 +17,6 @@ import { ServiceInfo } from './Types';
     return Reflect.getMetadata('design:paramtypes', target) || [];
   }
 
-  public static hasServiceParamTypes(target: any): boolean {
-    return !!Reflect.getMetadata('design:paramtypes', target);
-  }
-
   public static isValidService(target: any): boolean {
     return this.getServiceInfo(target).isService;
   }

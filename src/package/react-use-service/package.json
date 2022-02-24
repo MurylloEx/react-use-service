@@ -2,13 +2,15 @@
   "name": "react-use-service",
   "description": "This package aims to help users of React and React Native to use Dependency Injection (DI) and service pattern.",
   "author": "Muryllo Pimenta de Oliveira",
-  "version": "0.1.0",
+  "license": "MIT",
+  "version": "0.1.1",
   "private": false,
   "main": "dist/index.js",
+  "repository": {
+    "url": "https://github.com/MurylloEx/react-use-service",
+    "type": "git"
+  },
   "dependencies": {
-    "@types/node": "^16.11.25",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -20,6 +22,9 @@
     "build": "rimraf dist && tsc"
   },
   "devDependencies": {
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "@types/node": "^16.11.25",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11"
   }
 }

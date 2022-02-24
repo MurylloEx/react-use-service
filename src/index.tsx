@@ -1,14 +1,14 @@
 import 'reflect-metadata';
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { App } from 'src/App';
-import { ServiceContainer, ServiceProvider } from './package/react-use-service/dist';
-import { DatabaseHandler, MyLogger, UserService } from './services';
+import ReactDOM from 'react-dom';
+import { ServiceContainer, ServiceProvider } from 'react-use-service';
+import { DatabaseService, MyLoggerService, UserService } from './services';
+
 import './index.css';
 
 const Container = ServiceContainer.create().providers([
-  DatabaseHandler,
-  MyLogger,
+  DatabaseService,
+  MyLoggerService,
   UserService,
 ]);
 

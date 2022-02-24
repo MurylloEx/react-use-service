@@ -1,46 +1,120 @@
-# Getting Started with Create React App
+<h1 align="center">React Use Service</h1>
+<p align="center">
+  <img src="https://i.imgur.com/HPX7AP1.png" width="120" alt="React Logo" />
+</p>
+<h2 align="center">This project was created to use Dependency Injection in React</h2>
+<p align="center">This package aims to help users of React and React Native to use Dependency Injection (DI) and service pattern.</p>
+<p align="center">
+  <img src="https://badgen.net/badge/lang/TypeScript/purple?icon=label"/> 
+  <img src="https://badgen.net/badge/license/MIT/green?icon=label"/>
+  <img src="https://badgen.net/badge/authors/Muryllo/red?icon=label"/>
+  <img src="https://badgen.net/badge/frontend/React/orange?icon=label"/>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To use this you need the latest version of React, Node.js and npm/yarn.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+```sh
+git clone https://github.com/MurylloEx/react-use-service.git
+cd react-use-service
+npm install
+npm start
+```
 
-### `npm start`
+Add the following lines in your tsconfig.json to enable experimental decorators and emit decorator metadata.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`tsconfig.json`
+```json
+"experimentalDecorators": true,
+"emitDecoratorMetadata": true,
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Example
 
-### `npm test`
+`services.ts`
+```ts
+@Service()
+export class DatabaseHandler {
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  constructor() {}
 
-### `npm run build`
+  insert(table: string, data: { [column: string]: string | number }) {
+    console.log(`writing to ${table}:`);
+    console.log(data);
+  }
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+@Service()
+export class MyLogger {
+  
+  constructor(private dbHandler: DatabaseHandler) {}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  info(message: string) {
+    this.dbHandler.insert('log', {
+      level: 200,
+      message: message
+    });
+  }
 
-### `npm run eject`
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+@Service()
+export class UserService {
+  
+  constructor(private logger: MyLogger) {}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  editUser(userId: number) {
+    this.logger.info(`User ${userId} has been edited`);
+  }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+}
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`index.tsx`
+```tsx
+const Container = ServiceContainer.create().providers([
+  DatabaseHandler,
+  MyLogger,
+  UserService,
+]);
 
-## Learn More
+ReactDOM.render(
+  <ServiceProvider container={Container}>
+    <App />
+  </ServiceProvider>,
+  document.getElementById('root')
+);
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`App.tsx`
+```tsx
+export function App() {
+  const user = useService<UserService>(UserService);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  useEffect(() => {
+    user.editUser(3);
+  }, [user]);
+
+  return (
+    <p>Hello world!</p>
+  );
+}
+```
+
+## Metadata
+
+```
+Muryllo Pimenta – muryllo.pimenta@upe.br
+```
+
+Distribuído sobre a licença MIT. Veja ``LICENSE`` para mais informações.
+
+## Contributing
+
+1. Fork it (<https://github.com/MurylloEx/react-use-service/fork>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
