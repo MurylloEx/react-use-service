@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Service } from "src/lib";
+import { Service } from "src/package/lib";
 
 @Service()
 export class DatabaseHandler {
@@ -11,6 +11,7 @@ export class DatabaseHandler {
 
 @Service()
 export class MyLogger {
+  
   constructor(protected dbHandler: DatabaseHandler) {}
 
   info(message: string) {
