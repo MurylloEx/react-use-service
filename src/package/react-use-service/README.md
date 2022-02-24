@@ -35,7 +35,7 @@ Add the following lines in your tsconfig.json to enable experimental decorators 
 `services.ts`
 ```ts
 @Service()
-export class DatabaseHandler {
+export class DatabaseService {
 
   constructor() {}
 
@@ -47,12 +47,12 @@ export class DatabaseHandler {
 }
 
 @Service()
-export class MyLogger {
+export class MyLoggerService {
   
-  constructor(private dbHandler: DatabaseHandler) {}
+  constructor(private dbService: DatabaseService) {}
 
   info(message: string) {
-    this.dbHandler.insert('log', {
+    this.dbService.insert('log', {
       level: 200,
       message: message
     });
@@ -63,7 +63,7 @@ export class MyLogger {
 @Service()
 export class UserService {
   
-  constructor(private logger: MyLogger) {}
+  constructor(private logger: MyLoggerService) {}
 
   editUser(userId: number) {
     this.logger.info(`User ${userId} has been edited`);
