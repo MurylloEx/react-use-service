@@ -75,9 +75,9 @@ export class UserService {
 `index.tsx`
 ```tsx
 const Container = ServiceContainer.create().providers([
-  DatabaseHandler,
-  MyLogger,
-  UserService,
+  DatabaseService,
+  MyLoggerService,
+  UserService
 ]);
 
 ReactDOM.render(
