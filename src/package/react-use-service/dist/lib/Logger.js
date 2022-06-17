@@ -1,7 +1,6 @@
-import moment from 'moment';
 export class Logger {
     log(type, message) {
-        console.log(`[${type}] ${moment().format('YYYY-MM-DD [at] hh:mm:ss.SSS')} ${message}`);
+        console.log(`[${type}] ${new Date().toLocaleTimeString()} at ${new Date().toLocaleTimeString()} ${message}`);
     }
     info(message) {
         this.log('INFO', message);

@@ -2,14 +2,15 @@ import 'reflect-metadata';
 import React, { useEffect } from 'react';
 import { useService } from 'react-use-service';
 import { UserService } from './services';
+
 import './App.css';
 
 export function App() {
-  const user = useService<UserService>(UserService);
+  const userService = useService<UserService>(UserService);
 
   useEffect(() => {
-    user.editUser(3);
-  }, [user]);
+    userService.editUser(3);
+  }, [userService]);
 
   return (
     <div className="App">

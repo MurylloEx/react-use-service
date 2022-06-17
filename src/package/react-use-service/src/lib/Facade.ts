@@ -4,7 +4,7 @@ import { ServiceInfo } from './Types';
 /**
  * A simple class with common methods used with services.
  */
- export class ServiceFacade {
+export class ServiceFacade {
 
   public static getServiceInfo(target: any): ServiceInfo {
     return Reflect.getMetadata('react:services', target) || {

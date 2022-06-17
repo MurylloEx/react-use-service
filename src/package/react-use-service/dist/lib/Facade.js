@@ -12,9 +12,6 @@ export class ServiceFacade {
     static getServiceTokens(target) {
         return Reflect.getMetadata('design:paramtypes', target) || [];
     }
-    static hasServiceParamTypes(target) {
-        return !!Reflect.getMetadata('design:paramtypes', target);
-    }
     static isValidService(target) {
         return this.getServiceInfo(target).isService;
     }

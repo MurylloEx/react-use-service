@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { IServiceContainer } from './Container';
 import { ServiceContext } from './Provider';
+import { IServiceContainer } from './Container';
 
 export function useServiceContainer(): IServiceContainer {
   const context = useContext(ServiceContext);

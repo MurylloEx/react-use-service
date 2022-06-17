@@ -1,4 +1,4 @@
-import { ServiceFacade } from "./Facade";
+import { ServiceFacade } from './Facade';
 /**
  * Class that stores our services loaded in memory.
  */

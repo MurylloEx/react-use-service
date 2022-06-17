@@ -1,5 +1,5 @@
 /**
- * Type for what object is instances of
+ * Type for what object is instances of.
  */
 export interface Instantiable<P, T> {
     new (...args: P[]): T;

@@ -14,7 +14,7 @@ export interface ServiceProviderProps {
 export const ServiceProvider: FunctionComponent<ServiceProviderProps> = ({ children, container }) => {
   const containerRef = useRef<IServiceContainer>(container || DefaultContainer);
   const injectorRef = useRef<Injector>(Injector.create(containerRef.current));
-  
+
   const numOfLoadedDependencies = containerRef.current.getLoadedDependencies().length;
 
   if (numOfLoadedDependencies === 0) {

@@ -1,10 +1,10 @@
-import { ServiceFacade } from "./Facade";
-import { ServiceInfo } from "./Types";
+import { ServiceInfo } from './Types';
+import { ServiceFacade } from './Facade';
 
 /**
  * Interface that define how a Service Container should be.
  */
- export interface IServiceContainer {
+export interface IServiceContainer {
   providers(services: any[]): IServiceContainer;
   load<T>(instance: any): T;
   unloadAll(): IServiceContainer;
@@ -22,7 +22,7 @@ export class ServiceContainer implements IServiceContainer {
   private dependencies: any[] = [];
   private loadedDependencies: any[] = [];
 
-  private constructor() {}
+  private constructor() { }
 
   public providers(services: any[]) {
     this.dependencies = services;
@@ -31,7 +31,7 @@ export class ServiceContainer implements IServiceContainer {
 
   public load<T>(instance: any): T {
     const length = this.loadedDependencies.push(instance);
-    return this.loadedDependencies[length-1] as T;
+    return this.loadedDependencies[length - 1] as T;
   }
 
   public unloadAll() {
@@ -43,7 +43,7 @@ export class ServiceContainer implements IServiceContainer {
     return this.dependencies;
   }
 
-  public getLoadedDependencies(){
+  public getLoadedDependencies() {
     return this.loadedDependencies;
   }
 
