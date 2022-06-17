@@ -4,6 +4,9 @@ import { ServiceContainer } from './Container';
 import { createContext, useRef } from 'react';
 const DefaultContainer = ServiceContainer.create();
 export const ServiceContext = createContext(DefaultContainer);
+/**
+ * Service provider that holds the Service Container used to store the service references.
+ */
 export const ServiceProvider = ({ children, container }) => {
     const containerRef = useRef(container || DefaultContainer);
     const injectorRef = useRef(Injector.create(containerRef.current));

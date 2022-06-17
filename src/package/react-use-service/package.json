@@ -1,9 +1,9 @@
 {
   "name": "react-use-service",
-  "description": "This package aims to help users of React and React Native to use Dependency Injection (DI) and service pattern.",
+  "description": "This package aims to help users of React and React Native to use Dependency Injection (DI) and Service Pattern.",
   "author": "Muryllo Pimenta de Oliveira",
   "license": "MIT",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "private": false,
   "main": "dist/index.js",
   "keywords": [

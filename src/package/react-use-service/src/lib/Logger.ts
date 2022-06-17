@@ -1,7 +1,10 @@
+/**
+ * Logger class that allow us to show when a service is loaded, for example.
+ */
 export class Logger {
 
   log(type: string, message: string) {
-    console.log(`[${type}] ${new Date().toLocaleTimeString()} at ${new Date().toLocaleTimeString()} ${message}`);
+    console.log(`[${type}] ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()} ${message}`);
   }
 
   info(message: string) {

@@ -11,6 +11,9 @@ export interface ServiceProviderProps {
   children?: React.ReactNode;
 }
 
+/**
+ * Service provider that holds the Service Container used to store the service references.
+ */
 export const ServiceProvider: FunctionComponent<ServiceProviderProps> = ({ children, container }) => {
   const containerRef = useRef<IServiceContainer>(container || DefaultContainer);
   const injectorRef = useRef<Injector>(Injector.create(containerRef.current));

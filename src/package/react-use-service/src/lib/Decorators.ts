@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { Instantiable } from './Types';
 
 /**
- * The Service decorator that need be used in services
+ * The Service decorator that should be used in services
  */
 export const Service = () => {
   return (target: Instantiable<any, any>) => {
