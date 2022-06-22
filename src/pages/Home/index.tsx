@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { useApod } from 'src/core/hooks';
-import { Paragraph, Picture, Render, Title } from 'src/core/components';
+import { useApod } from 'src/core';
+import { Paragraph, Picture, Render, Title } from 'src/core';
 import { Container } from './styles';
 
 export interface HomePageProps { }

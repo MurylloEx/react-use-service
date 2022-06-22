@@ -5,4 +5,6 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 16px 32px 16px 32px;
   align-items: center;
+  font-size: 24px;
+  font-family: Roboto;
 `;
