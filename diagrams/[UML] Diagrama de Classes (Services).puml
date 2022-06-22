@@ -1,0 +1,34 @@
+@startuml "Class Diagram"
+
+title "Diagrama de Classes - Services"
+
+class AxiosService {
+  -builderConfig: AxiosRequestConfig<any>
+  +baseUrl(url: string): AxiosService
+  +header(key: string, value: string): AxiosService
+  +param(key: string, value: string): AxiosService
+  +destroy(): AxiosService
+  +build(config: AxiosRequestConfig<any>): AxiosInstance
+}
+
+class HttpService {
+  -NASA_API_BASE_URL: string
+  -NASA_API_TOKEN_KEY: string
+  -NASA_API_TOKEN_VALUE: string
+  -httpClient: AxiosInstance
+  +constructor(axiosService: AxiosService)
+  +get<T = any>(url: string, params?: any): Promise<AxiosResponse<T, any>>
+  +post<T = any, D = any>(url: string, params?: any, data?: D): Promise<AxiosResponse<T, any>>
+  +put<T = any, D = any>(url: string, params?: any, data?: D): Promise<AxiosResponse<T, any>>
+  +delete<T = any>(url: string, params?: any): Promise<AxiosResponse<T, any>>
+}
+
+class NasaService {
+  +constructor(httpService: HttpService)
+  +getApod(): Promise<AxiosResponse<Apod>>
+}
+
+NasaService ..* HttpService : <b><<compose>></b>
+HttpService ..* AxiosService : <b><<compose>></b>
+
+@enduml

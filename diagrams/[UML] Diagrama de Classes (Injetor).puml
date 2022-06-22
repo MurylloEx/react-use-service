@@ -1,0 +1,83 @@
+@startuml "Class Diagram"
+
+title "Diagrama de Classes - Dependency Injection"
+
+left to right direction
+
+class ServiceContainer implements IServiceContainer {
+  -constructor()
+  +providers(services: any[]): IServiceContainer
+  +load<T>(instance: any): T
+  +unloadAll(): IServiceContainer
+  +getDependencies(): any[]
+  +getLoadedDependencies(): any[]
+  +get<K>(serviceClass: any): K
+  +isExportedDependency(dependency: any): boolean
+}
+
+class Injector {
+  -constructor(serviceContainer: IServiceContainer)
+  -truthyOnThrowError(action: () => any | void): boolean
+  -hasResolvedDependency(token: Instantiable<any, any>): boolean
+  -hasCircularDependency(tokens: Instantiable<any, any>[]): boolean
+  -hasUnresolvedDependency(injections: Instantiable<any, any>[]): boolean
+  -forwardRef(token: Instantiable<any, any>): Instantiable<any, any>
+  +resolve<T>(target: Instantiable<any, any>): T
+  +resolveAll(): void
+  {static} +create(serviceContainer: IServiceContainer): Injector
+}
+
+class ServiceFacade {
+  {static} +getServiceInfo(target: any): ServiceInfo
+  {static} +getServiceTokens(target: any): any[]
+  {static} +isValidService(target: any): boolean
+}
+
+class Logger {
+  +log(type: string, message: string): void
+  +info(message: string): void
+  +fatal(error: Error)
+}
+
+class ServiceA implements Instantiable {
+  +doSomething(): void
+}
+
+class ServiceB implements Instantiable {
+  +constructor(serviceA: ServiceA)
+  +doSomethingElse(): void
+}
+
+interface IServiceContainer {
+  +providers(services: any[]): IServiceContainer
+  +load<T>(instance: any): T
+  +unloadAll(): IServiceContainer
+  +getDependencies(): any[]
+  +getLoadedDependencies(): any[]
+  +get<K>(serviceClass: any): K
+  +isExportedDependency(dependency: any): boolean
+}
+
+interface Instantiable<P, T> {
+  +new(args: P[]): T
+}
+
+interface ServiceInfo {
+  +uuid: string
+  +isService: boolean
+}
+
+ServiceFacade ..> ServiceInfo : <b><<depends>></b>
+
+ServiceA .left.> ServiceInfo : <b><<depends>></b>
+ServiceB .left.> ServiceInfo : <b><<depends>></b>
+ServiceB .right.* ServiceA : <b><<compose>></b>
+
+Injector .right.> Instantiable : <b><<depends>></b>
+Injector .right.> IServiceContainer : <b><<depends>></b>
+Injector ..* Logger : <b><<compose>></b>
+Injector ..> ServiceFacade : <b><<depends>></b>
+
+ServiceContainer ..> ServiceFacade : <b><<depends>></b>
+
+@enduml

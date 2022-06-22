@@ -1,0 +1,33 @@
+@startuml "Package Diagram"
+
+title "Diagrama de Pacotes"
+
+left to right direction
+
+package "gov.nasa.app" <<package>> {
+  package "gov.nasa.app.src" <<package>> {
+    package "gov.nasa.app.src.core" <<package>> as CORE {
+      package "gov.nasa.app.src.core.hooks"      <<package>> as HOOKS
+      package "gov.nasa.app.src.core.components" <<package>> as COMPONENTS
+      package "gov.nasa.app.src.core.models"     <<package>> as MODELS
+      package "gov.nasa.app.src.core.providers"  <<package>> as PROVIDERS
+      package "gov.nasa.app.src.core.services"   <<package>> as SERVICES
+    }
+    package "gov.nasa.app.src.pages"   <<package>> as PAGES
+    package "gov.nasa.app.src.routes"  <<package>> as ROUTES
+  }
+}
+
+HOOKS .down.> SERVICES : <b>uses</b>
+HOOKS .left.> PROVIDERS : <b>uses</b>
+HOOKS .left.> MODELS : <b>uses</b>
+
+PAGES .right.> ROUTES : <b>uses</b>
+PAGES .right.> COMPONENTS : <b>uses</b>
+PAGES .down.> HOOKS : <b>uses</b>
+PAGES .right.> MODELS : <b>uses</b>
+
+PROVIDERS ..> SERVICES : <b>uses</b>
+SERVICES .up.> MODELS : <b>uses</b>
+
+@enduml

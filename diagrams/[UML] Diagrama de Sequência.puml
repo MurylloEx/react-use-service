@@ -1,0 +1,26 @@
+@startuml "Sequence Diagram"
+
+title "Diagrama de Sequência - Requisição para o WebService da Nasa"
+
+actor     "Usuário"       as USER
+control   "HomePage"      as HOME_PAGE
+boundary  "useApod Hook"  as APOD_HOOK
+boundary  "NasaService"   as NASA_SERVICE
+boundary  "HttpService"   as HTTP_SERVICE
+boundary  "AxiosService"  as AXIOS_SERVICE
+
+USER -> HOME_PAGE : 1. Usuário acessa a página inicial : GET http://localhost:3000/
+HTTP_SERVICE -> AXIOS_SERVICE : 1.1 Constrói a instância do HttpClient : build()
+AXIOS_SERVICE -->> HTTP_SERVICE : Retorna uma instância do HttpClient : AxiosInstance
+HOME_PAGE -> APOD_HOOK : 2.1 Invoca o Hook React Query que retorna a APOD : useApod()
+APOD_HOOK -->> HOME_PAGE : Retorna um objeto contendo as referências dos states da requisição : UseQueryResult
+HOME_PAGE -> HOME_PAGE : 3. Registra um retorno de chamada no lifecycle de montagem do componente : useEffect()
+HOME_PAGE -> HOME_PAGE : 4. Dispara o gatilho que inicia a solicitação HTTP : getApod()
+HOME_PAGE -> APOD_HOOK : 5. Solicita as informações da APOD : getApod()
+APOD_HOOK -> NASA_SERVICE : 5.1 Solicita as informações da APOD ao NasaService : getApod()
+NASA_SERVICE -> HTTP_SERVICE : 5.2 Transfere a execução para o HttpClient do Axios : get()
+HTTP_SERVICE -->> NASA_SERVICE : Retorna imediatamente : Promise<AxiosResponse<Apod>>
+NASA_SERVICE -->> APOD_HOOK : Retorna imediatamente : Promise<AxiosResponse<Apod>> 
+APOD_HOOK -->> HOME_PAGE : Retorna imediatamente : Promise<AxiosResponse<Apod>>
+HOME_PAGE -->> USER : Renderiza novamente toda a página quando o React Query decide que a requisição foi concluída.
+@enduml
